@@ -1,4 +1,4 @@
-node('principal') {
+node('Linux') {
 
     echo "Hello from Jenkinsfile"
 
