@@ -1,5 +1,5 @@
 node('Linux') {
-
-    echo "Hello from Jenkinsfile"
-
+    stage('first stage') {
+        echo 'Hello from Jenkinsfile'
+    }
 }
