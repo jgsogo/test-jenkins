@@ -1,0 +1,7 @@
+node('Linux') {
+    stage('A stage'){
+        echo "Hello from Jenkinsfile2"
+    }
+
+    currentBuild.result = 'FAILURE'  // Always fail
+}
