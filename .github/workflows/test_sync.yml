@@ -25,13 +25,31 @@ jobs:
           PULL_REQUEST_TITLE: "[sync-branches] Sync `staging` with `master`"
           REVIEWERS: '["jgsogo"]'
 
+      # - name: Enable automerge (MERGE)
+      #   run: |
+      #     echo "(${{ steps.pullrequest.outputs.PULL_REQUEST_NUMBER }}) ${{ steps.pullrequest.outputs.PULL_REQUEST_URL }}"
+      #     curl -H "Authorization: Bearer ${{secrets.GITHUB_TOKEN}}" -X POST -d "mutation { enablePullRequestAutoMerge(input: {pullRequestId: \"PR_kwDOHN6q7c44Yxn_\", mergeMethod: MERGE}) {clientMutationId}}" https://api.github.com/graphql
+
       - name: Enable automerge (MERGE)
-        run: |
-          echo "(${{ steps.pullrequest.outputs.PULL_REQUEST_NUMBER }}) ${{ steps.pullrequest.outputs.PULL_REQUEST_URL }}"
-          curl -H "Authorization: Bearer ${{secrets.GITHUB_TOKEN}}" -X POST -d " \
-          mutation MyMutation { \
-              enablePullRequestAutoMerge(input: {pullRequestId: \"${{ steps.pullrequest.outputs.PULL_REQUEST_NUMBER }}\", mergeMethod: MERGE}) {
-                                                  clientMutationId \
-              } \
-          } \
-          " https://api.github.com/graphql
+        uses: actions/github-script@v6
+        with:
+          script: |
+            // Get pull-request node_id from number
+            const pr = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: ${{ steps.pullrequest.outputs.PULL_REQUEST_NUMBER }}
+            });
+            console.log(pr.data.node_id)
+
+            // Enable auto-merge
+            const query = `mutation($prId:ID!) { 
+                enablePullRequestAutoMerge(input: {pullRequestId:$prId, mergeMethod: MERGE}) {
+                  clientMutationId
+                }
+            }`;
+            const variables = {
+              prId: pr.data.node_id
+            }
+            const result = await github.graphql(query, variables)
+            console.log(result)
