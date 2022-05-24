@@ -38,9 +38,9 @@ jobs:
             const pr = github.rest.pulls.get({
               context.repo.owner,
               context.repo.repo,
-              ${{ steps.pullrequest.outputs.PULL_REQUEST_NUMBER }},
+              ${{ steps.pullrequest.outputs.PULL_REQUEST_NUMBER }}
             });
-            console.log(pr.node_id)
+            console.log(pr)
 
             // Enable auto-merge
             const query = `mutation($prId:ID!) { 
