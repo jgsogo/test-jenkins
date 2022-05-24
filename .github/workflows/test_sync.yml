@@ -40,7 +40,7 @@ jobs:
                 }
             }`;
             const variables = {
-              prId: "PR_kwDOHN6q7c44Yxn_"
+              prId: 'PR_kwDOHN6q7c44Yxn_'
             }
             const result = await github.graphql(query, variables)
             console.log(result)
