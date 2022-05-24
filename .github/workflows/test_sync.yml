@@ -34,13 +34,22 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            // Get pull-request node_id from number
+            const pr = github.rest.pulls.get({
+              context.repo.owner,
+              context.repo.repo,
+              ${{ steps.pullrequest.outputs.PULL_REQUEST_NUMBER }},
+            });
+            console.log(pr.node_id)
+
+            // Enable auto-merge
             const query = `mutation($prId:ID!) { 
                 enablePullRequestAutoMerge(input: {pullRequestId:$prId, mergeMethod: MERGE}) {
                   clientMutationId
                 }
             }`;
             const variables = {
-              prId: 'PR_kwDOHN6q7c44Yxn_'
+              prId: pr.node_id
             }
             const result = await github.graphql(query, variables)
             console.log(result)
