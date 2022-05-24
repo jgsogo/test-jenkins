@@ -1,0 +1,20 @@
+   
+name: Testing
+on:
+  pull_request:
+
+jobs:
+  sync-branches:
+    runs-on: ubuntu-latest
+    name: Syncing branches - staging
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+
+      - name: Opening pull request
+        run:
+          echo "Just a fake test"
+          sleep 10
