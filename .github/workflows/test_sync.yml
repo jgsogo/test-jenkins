@@ -40,7 +40,7 @@ jobs:
               repo: context.repo.repo,
               pull_number: ${{ steps.pullrequest.outputs.PULL_REQUEST_NUMBER }}
             });
-            console.log(pr)
+            console.log(pr.data.node_id)
 
             // Enable auto-merge
             //const query = `mutation($prId:ID!) { 
