@@ -36,9 +36,9 @@ jobs:
           script: |
             // Get pull-request node_id from number
             const pr = github.rest.pulls.get({
-              context.repo.owner,
-              context.repo.repo,
-              ${{ steps.pullrequest.outputs.PULL_REQUEST_NUMBER }}
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: ${{ steps.pullrequest.outputs.PULL_REQUEST_NUMBER }}
             });
             console.log(pr)
 
