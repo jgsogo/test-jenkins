@@ -43,13 +43,13 @@ jobs:
             console.log(pr)
 
             // Enable auto-merge
-            const query = `mutation($prId:ID!) { 
-                enablePullRequestAutoMerge(input: {pullRequestId:$prId, mergeMethod: MERGE}) {
-                  clientMutationId
-                }
-            }`;
-            const variables = {
-              prId: pr.node_id
-            }
-            const result = await github.graphql(query, variables)
-            console.log(result)
+            //const query = `mutation($prId:ID!) { 
+            //    enablePullRequestAutoMerge(input: {pullRequestId:$prId, mergeMethod: MERGE}) {
+            //      clientMutationId
+            //    }
+            //}`;
+            //const variables = {
+            //  prId: pr.node_id
+            //}
+            //const result = await github.graphql(query, variables)
+            //console.log(result)
