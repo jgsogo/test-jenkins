@@ -28,10 +28,4 @@ jobs:
       - name: Enable automerge (MERGE)
         run: |
           echo "(${{ steps.pullrequest.outputs.PULL_REQUEST_NUMBER }}) ${{ steps.pullrequest.outputs.PULL_REQUEST_URL }}"
-          curl -H "Authorization: Bearer ${{secrets.GITHUB_TOKEN}}" -X POST -d "\
-          mutation { \
-              enablePullRequestAutoMerge(input: {pullRequestId: \"PR_kwDOHN6q7c44Yxn_\", mergeMethod: MERGE}) {
-                                                  clientMutationId \
-              } \
-          } \
-          " https://api.github.com/graphql
+          curl -H "Authorization: Bearer ${{secrets.GITHUB_TOKEN}}" -X POST -d "mutation { enablePullRequestAutoMerge(input: {pullRequestId: \"PR_kwDOHN6q7c44Yxn_\", mergeMethod: MERGE}) {clientMutationId}}" https://api.github.com/graphql
