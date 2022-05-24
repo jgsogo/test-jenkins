@@ -34,7 +34,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const query = `mutation($prId:String!) { 
+            const query = `mutation($prId:ID!) { 
                 enablePullRequestAutoMerge(input: {pullRequestId:$prId, mergeMethod: MERGE}) {
                   clientMutationId
                 }
